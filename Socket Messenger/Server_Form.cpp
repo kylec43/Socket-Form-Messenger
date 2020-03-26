@@ -289,7 +289,7 @@ void Server_Form::Post_Message(const std::string& data)
 	std::string Name = Get_Name(recieved_data);
 	std::string message = Get_Message(recieved_data);
 
-	int font_size = (Message_Box->GetSize().GetHeight() / 2) / 20;
+	int font_size = (Message_Box->GetSize().GetHeight() / 2) / SERVER_MSG_BOX_LINES_VISIBLE;
 	wxFont font(font_size, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	Message_Box->BeginFont(font);
 	Message_Box->DoWriteText(Name + ": ");
@@ -297,11 +297,11 @@ void Server_Form::Post_Message(const std::string& data)
 
 	wxFont font2(font_size, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	Message_Box->BeginFont(font2);
-	Message_Box->DoWriteText(message + "\n\n");
+	Message_Box->DoWriteText(message + "\n");
 	Message_Box->EndFont();
 
+	Message_Box->ScrollIntoView(Message_Box->GetLastPosition(), WXK_PAGEDOWN);
 
-	Message_Box->ScrollIntoView(Message_Box->GetLastPosition() * 0.915, WXK_END);
 }
 
 void Server_Form::Socket_Server_Event_Post_Message(wxCommandEvent& event)
@@ -417,5 +417,4 @@ bool Server_Form::Admin_Send_Requested()
 {
 	return send_request;
 }
-
 

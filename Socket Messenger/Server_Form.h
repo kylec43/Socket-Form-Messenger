@@ -9,6 +9,7 @@
 #include <deque>
 #include <wx/listbox.h>
 #include <vector>
+#include <deque>
 class wxButton;
 class wxTextCtrl;
 class wxStaticText;
@@ -17,7 +18,8 @@ enum
 {
 	ID_INITIALIZE,
 	ID_DISCONNECT,
-	ID_KICK_BUTTON
+	ID_KICK_BUTTON,
+	SERVER_MSG_BOX_LINES_VISIBLE = 15
 };
 
 
@@ -49,6 +51,7 @@ public:
 	void On_Kick_Button(wxCommandEvent&);
 	bool Kick_Requested();
 	std::string Get_Kick_Client_Name();
+	void Socket_Server_Event_Create_Pop_Up(wxCommandEvent&, std::string, std::string, int);
 
 
 private:
@@ -70,6 +73,7 @@ private:
 	std::atomic<bool> kick_requested;
 	std::string kick_client_name;
 	std::mutex Lock_Kick_Client_Name;
+	std::deque<std::pair<std::string, std::string>> messages;
 
 
 	DECLARE_EVENT_TABLE()

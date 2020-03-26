@@ -66,13 +66,12 @@ Client_Form::Client_Form(const std::string& title, const int posx, const int pos
 	int text_box_height = height * 0.70;
 	int text_box_posx = width * 0.50 - text_box_width / 2;
 	int text_box_posy = 0;
-	wxRichTextCtrl* text_box = new wxRichTextCtrl(panel_messenger, wxID_ANY, "", wxPoint(text_box_posx, text_box_posy), wxSize(text_box_width, text_box_height), wxBORDER_SIMPLE | wxRE_READONLY | wxRE_MULTILINE);
-	text_box->SetBackgroundColour(*wxWHITE);
-	Message_Box = text_box;
+	Message_Box = new wxRichTextCtrl(panel_messenger, wxID_ANY, "", wxPoint(text_box_posx, text_box_posy), wxSize(text_box_width, text_box_height), wxBORDER_SIMPLE | wxRE_READONLY | wxRE_MULTILINE);
+	Message_Box->SetBackgroundColour(*wxWHITE);
 
 
 	/*Create Input box for sending messages*/
-	int input_box_width = text_box->GetSize().GetWidth();
+	int input_box_width = Message_Box->GetSize().GetWidth();
 	int input_box_height = height * 0.20;
 	int input_box_posx = text_box_posx;
 	int input_box_posy = height * 0.725;
@@ -285,7 +284,6 @@ void Client_Form::Post_Message(const std::string& data)
 	std::string Name = Get_Name(recieved_data);
 	std::string message = Get_Message(recieved_data);
 
-
 	int font_size = (Message_Box->GetSize().GetHeight() / 2) / CLIENT_MSG_BOX_LINES_VISIBLE;
 	wxFont font(font_size, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	Message_Box->BeginFont(font);
@@ -294,9 +292,11 @@ void Client_Form::Post_Message(const std::string& data)
 
 	wxFont font2(font_size, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	Message_Box->BeginFont(font2);
-	Message_Box->DoWriteText(message + "\n\n");
+	Message_Box->DoWriteText(message + "\n");
 	Message_Box->EndFont();
-	Message_Box->ScrollIntoView(Message_Box->GetLastPosition() * 0.9, WXK_END);
+
+	Message_Box->ScrollIntoView(Message_Box->GetLastPosition(), WXK_PAGEDOWN);
+
 }
 
 

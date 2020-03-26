@@ -26,6 +26,14 @@ Socket_Server::Socket_Server(Server_Form* form):
 
 }
 
+class test
+{
+public:
+	std::string m;
+	std::string t;
+	int f;
+};
+
 void* Socket_Server::Entry()
 {
 	wxCommandEvent post_message_event(wxEVT_COMMAND_TEXT_UPDATED, ID_SOCKET_SERVER_POST_MESSAGE);

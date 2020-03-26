@@ -77,6 +77,7 @@ private:
 	std::deque<std::string> message_box_lines;
 	std::atomic<bool> connection_initialized;
 	std::atomic<bool> user_disconnected;
+	std::deque<std::pair<std::string, std::string>> messages;
 
 	DECLARE_EVENT_TABLE()
 };
