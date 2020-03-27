@@ -220,6 +220,7 @@ void Client_Form::Button_Pressed_Connect(wxCommandEvent& e)
 	}
 
 	Disable_Connect_Button();
+	Message_Box->Clear();
 	Client_Connection* client_connection = new Client_Connection(this, Get_User_Name(), Get_IP(), Get_Port());
 	client_connection->Create();
 	client_connection->Run();
@@ -273,7 +274,6 @@ bool Client_Form::Send_Request()
 {
 	return send_request;
 }
-
 
 
 
@@ -366,6 +366,11 @@ bool Client_Form::Name_Is_Valid()
 
 bool Client_Form::Port_Is_Valid()
 {
+	if (Get_Port().length() == 0)
+	{
+		return false;
+	}
+
 	for (int i = 0; i < Get_Port().length(); i++)
 	{
 		if (!isdigit(Get_Port()[i]))
@@ -393,6 +398,11 @@ bool Client_Form::IP_Is_Valid()
 	}
 	else
 	{
+
+		if (Get_IP().length() == 0)
+		{
+			return false;
+		}
 
 		for (int i = 0; i < Get_IP().length(); i++)
 		{

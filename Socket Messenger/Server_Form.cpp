@@ -172,6 +172,7 @@ Server_Form::Server_Form(const std::string title, const int x, const int y, cons
 void Server_Form::Init_Button_Pressed(wxCommandEvent& event)
 {
 	Disable_Initialize_Button();
+	Message_Box->Clear();
 	Socket_Server* server = new Socket_Server(this);
 	server->Create();
 	server->Run();
